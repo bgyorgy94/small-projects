@@ -1,0 +1,17 @@
+body div {
+    text-align: center;
+}
+
+.black {
+    background-color: black;
+}
+
+.green {
+    font-size: 20px;
+    color: green;
+}
+
+.red {
+    font-size: 20px;
+    color: red;
+}

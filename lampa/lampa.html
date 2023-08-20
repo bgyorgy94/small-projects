@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lampa.css">
+</head>
+<body>
+    <div id="lampa">
+        <div id="piros" class="dot"></div>
+        <div id="sarga" class="dot"></div>
+        <div id="zold" class="dot"></div>
+    </div>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+
+    <script>
+        let startBtn = document.querySelector("#start");
+        let stopBtn = document.querySelector("#stop");
+        let pirosLampa = document.querySelector("#piros");
+        let sargaLampa = document.querySelector("#sarga");
+        let zoldLampa = document.querySelector("#zold");
+
+        let szamlalo = 0;
+        let timeout1;
+        let timeout2;
+        let interval;
+
+        function piros () {
+            pirosLampa.classList.add("piros");
+            setTimeout(() => {
+                pirosLampa.classList.remove("piros")
+            }, 3000);
+            szamlalo++;
+        }
+
+        function sarga () {
+            sargaLampa.classList.add("sarga");
+            setTimeout(() => {
+                sargaLampa.classList.remove("sarga")
+            }, 3000);
+            szamlalo++;
+        }
+
+        function zold () {
+            zoldLampa.classList.add("zold");
+            setTimeout(() => {
+                zoldLampa.classList.remove("zold")
+            }, 3000);
+            szamlalo++;
+        }
+
+        function valtogatas () {
+            piros();
+            timeout1 = setTimeout(sarga, 3000);
+            timeout2 = setTimeout(zold, 6000);
+        }
+
+        startBtn.addEventListener("click", () => {
+            valtogatas();
+            interval = setInterval(valtogatas, 9000);
+        });
+
+        stopBtn.addEventListener("click", () => {
+            clearInterval(interval);
+            clearTimeout(timeout1);
+            clearTimeout(timeout2);
+        })
+    </script>
+</body>
+</html>

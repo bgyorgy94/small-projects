@@ -1,0 +1,27 @@
+#lampa {
+    border: 5px solid black;
+    height: 200px;
+    width: 50px;
+    margin-bottom: 20px;
+}
+
+.piros {
+    background-color: red;
+}
+
+.sarga {
+    background-color: yellow;
+}
+
+.zold {
+    background-color: green;
+}
+
+.dot {
+    height: 15px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

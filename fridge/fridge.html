@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #fridge {
+            display: grid;
+            margin-top: 10px;
+        }
+
+        .shelf {
+            display: flex;
+            border: 1px solid black;
+            border-bottom: 4px solid black;
+            width: 500px;
+        }
+
+        .foodstuff {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .black {
+            background-color: black;
+            color: white;
+        }
+
+        .red {
+            background-color: red;
+            color: white;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+    </style>
+
+    <button id="nxtDay">Next Day</button>
+
+    <div id="fridge">
+    </div>
+
+    <script>
+        let fridge = [
+            [  // first shelf
+                {
+                    name: "milk",
+                    daysRemain: 4
+                },
+                {
+                    name: "yogurt",
+                    daysRemain: 6
+                }
+            ],
+
+
+            [  // second shelf
+                {
+                    name: "salami",
+                    daysRemain: 3
+                },
+                {
+                    name: "beer",
+                    daysRemain: 8
+                }
+            ],
+
+
+            [  // third shelf
+                {
+                    name: "lunch",
+                    daysRemain: 2
+                },
+                {
+                    name: "tomatoes",
+                    daysRemain: 4
+                },
+                {
+                    name: "cucumber",
+                    daysRemain: 3
+                }
+            ]
+        ];
+
+        function generateFridgeContent() {
+            for (let i = 0; i < fridge.length; i++) {
+            let shelfDiv = createShelfDiv(fridge[i]);
+            fridgeDiv.append(shelfDiv);
+        }};
+
+        function createShelfDiv(shelfArray) {
+            let shelfDiv = document.createElement("div");
+            shelfDiv.className = "shelf";
+            for (let i = 0; i < shelfArray.length; i++) {
+                let foodstuffDiv = createFoodstuffDiv(shelfArray[i]);
+                shelfDiv.append(foodstuffDiv);
+            }
+            return shelfDiv;
+        }
+
+        function createFoodstuffDiv(foodstuff) {
+            let div = document.createElement("div");
+            div.innerHTML = foodstuff.name;
+            div.className = "foodstuff";
+            foodstuff.dom = div;
+
+            return div;
+        }
+
+        let fridgeDiv = document.querySelector("#fridge");
+
+        generateFridgeContent();
+
+        let nxtDayBtn = document.querySelector("#nxtDay");
+        nxtDayBtn.addEventListener("click", () => {
+            fridge.forEach(s => {
+                s.forEach(e => {
+                    e.daysRemain--;
+                    
+                    e.dom.className = "foodstuff";
+                    if (e.daysRemain < 1) {
+                        e.dom.classList.add("black");
+                    } else if (e.daysRemain < 2) {
+                        e.dom.classList.add("red");
+                    } else if (e. daysRemain < 4) {
+                        e.dom.classList.add("yellow");
+                    }
+                })
+            })
+        });
+ 
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="inputdiv"><input type="text"><button id="create">CREATE</button></div>
+    <div id="container"></div>
+
+    <style>
+        #inputdiv {
+            display: flex;
+            border: 1px solid cadetblue;
+            border-radius: 5px;
+            width: fit-content;
+            margin-bottom: 50px;
+        }
+
+        input {
+            outline: none;
+            padding: 5px;
+            width: 300px;
+        }
+
+        #create {
+            background-color: cadetblue;
+            color: white;
+            border: 2px solid cadetblue;
+        }
+
+        .listElement {
+            width: 500px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: cadetblue;
+            color: white;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .listElement input {
+            width: fit-content;
+        }
+
+        .listElement button {
+            padding: 10px;
+            background-color: palevioletred;
+            color: white;
+            border: 2px solid palevioletred;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script>
+        const inputDOM = document.querySelector("#inputdiv input");
+        const createBtnDOM = document.querySelector("#create");
+        const containerDOM = document.querySelector("#container");
+        let todo;
+
+        if(JSON.parse(localStorage.getItem('todo')) === null ) {
+            todo = [];
+        } else todo = JSON.parse(localStorage.getItem('todo'));
+        
+        function updateList() {
+            const temp = document.createElement("div");
+            for (let i = 0; i < todo.length; i++) {
+                let listElement = document.createElement("div");
+                listElement.className = "listElement";
+                listElement.innerHTML = '<span></span><span>' + todo[i] + '</span><button>Delete</button>';
+                temp.append(listElement);
+            };
+            containerDOM.innerHTML = temp.innerHTML;
+
+            const deleteBtnDOm = document.querySelectorAll(".listElement button");
+            for (let i = 0; i < deleteBtnDOm.length; i++) {
+                deleteBtnDOm[i].addEventListener("click", () => {
+                    todo.splice(i, 1);
+                    localStorage.setItem("todo", JSON.stringify(todo));
+                    updateList();
+                });
+            };
+
+        };
+
+        updateList();
+
+        createBtnDOM.addEventListener("click", () => {
+            const todoItem = {value: inputDOM.value, done: false}
+            todo.push(todoItem);
+            localStorage.setItem("todo", JSON.stringify(todo));
+            updateList();
+            inputDOM.value = "";
+        });
+
+        inputDOM.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                todo.push(inputDOM.value);
+                localStorage.setItem("todo", JSON.stringify(todo));
+                updateList();
+                inputDOM.value = "";
+            };
+        });
+
+    </script>
+</body>
+</html>

@@ -111,7 +111,7 @@ function moveBall() {
 };
 
 function nextLevel() {
-    gameLevel += 1;
+    gameLevel <= 4 ? gameLevel += 1 : gameLevel = 1;
     levelDisplay.innerHTML = 'Level ' + gameLevel;
 };
 
@@ -140,7 +140,7 @@ function checkForCollisions() {
             score++
             scoreDisplay.innerHTML = score
             if (blocks.length == 0) {
-                scoreDisplay.innerHTML = 'You Win!'
+                scoreDisplay.innerHTML = 'You won!'
                 gameLevel += 1
                 clearInterval(timerId)
                 document.removeEventListener('keydown', moveUser)
@@ -163,7 +163,7 @@ function checkForCollisions() {
 
     if (ballCurrentPosition[1] <= 0) {
         clearInterval(timerId)
-        scoreDisplay.innerHTML = 'You lose!'
+        scoreDisplay.innerHTML = 'You lost!'
         document.removeEventListener('keydown', moveUser)
     }
 };
